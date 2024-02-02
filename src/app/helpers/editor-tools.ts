@@ -30,6 +30,10 @@ export const EDITOR_JS_TOOLS: any = {
     table: {
         class: Table,
         inlineToolbar: commonInlineToolbar,
+        config : {
+            cols: 2,
+            rows: 2
+        }
     },
     marker: {
         class: Marker,

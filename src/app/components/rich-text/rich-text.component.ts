@@ -10,7 +10,6 @@ import { ControlOptions } from 'src/app/models/index';
 })
 export class RichTextComponent implements OnInit {
 
-
   @ViewChild('editor', { read: ElementRef, static: true }) editorElement: ElementRef;
 
   @Input()
@@ -52,7 +51,23 @@ export class RichTextComponent implements OnInit {
       autofocus: true,
       minHeight: 300,
       tools: EDITOR_JS_TOOLS,
+      onReady: () => {
+        const toolbar = this.editor?.configuration.holder.querySelector('.ce-popover__items');
+        if (toolbar) {
+          toolbar.addEventListener('click', (event) => {
+            const tableToolButton = event.target.closest('[data-item-name="table"]');
+            if (tableToolButton) {
+              this.customTableConfig(7, 7);
+            }
+          });
+        }
+      },
     });
   }
+
+  private customTableConfig(rows, cols) {
+    this.editor.configuration.tools.table.config = { rows: rows, cols: cols };
+  }
+
 
 }
